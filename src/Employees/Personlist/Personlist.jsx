@@ -15,15 +15,15 @@ const PersonList = ({ employeeData, onUpdateEmployee, onDeleteEmployee }) => {
     return matchesName && matchesTitle;
   });
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3002/employees/${id}`);
-      onDeleteEmployee(id);
-    } catch (err) {
-      console.error("Error deleting employee:", err);
-      alert("Failed to delete employee.");
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await axios.delete(`https://hr-app-backend-9g16.onrender.com/employees/${id}`);
+  //     onDeleteEmployee(id);
+  //   } catch (err) {
+  //     console.error("Error deleting employee:", err);
+  //     alert("Failed to delete employee.");
+  //   }
+  // };
 
   const handleSearchClick = () => {
   };

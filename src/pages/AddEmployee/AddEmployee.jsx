@@ -15,7 +15,7 @@ const AddEmployee = ({ onAddEmployee }) => {
     location: '',
     department: '',
     skills: '',
-    profilePicture: '' // ✅ Added
+    profilePicture: '' 
   });
 
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const AddEmployee = ({ onAddEmployee }) => {
     };
 
     axios
-      .post("http://localhost:3002/employees", newEmployee)
+      .post("https://hr-app-backend-9g16.onrender.com/employees", newEmployee)
       .then((response) => {
         onAddEmployee(response.data);
         navigate('/person');
@@ -53,7 +53,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           location: '',
           department: '',
           skills: '',
-          profilePicture: '' // ✅ Reset too
+          profilePicture: '' 
         });
       })
       .catch((error) => {
@@ -77,7 +77,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           { name: 'location', placeholder: 'Location' },
           { name: 'department', placeholder: 'Department' },
           { name: 'skills', placeholder: 'Skills (comma-separated)' },
-          { name: 'profilePicture', placeholder: 'Profile Picture URL' } // ✅ New input
+          { name: 'profilePicture', placeholder: 'Profile Picture URL' } 
         ].map(({ name, placeholder, type = 'text' }) => (
           <input
             key={name}

@@ -19,13 +19,13 @@ const showMessage = (text, type = 'success') => {
 
 
     useEffect(() => {
-      axios.get('http://localhost:3002/employees')
+      axios.get('https://hr-app-backend-9g16.onrender.com/employees')
         .then((res) => setEmployeeData(res.data))
         .catch((err) => console.error('Failed to fetch data', err));
     }, []);
 
     const addEmployeeHandler = (newEmployee) => {
-      axios.post('http://localhost:3002/employees', newEmployee)
+      axios.post('https://hr-app-backend-9g16.onrender.com/employees', newEmployee)
         .then((res) => {
           setEmployeeData((prev) => [...prev, res.data]);
           showMessage('Employee added successfully!', 'add');
@@ -43,7 +43,7 @@ const showMessage = (text, type = 'success') => {
       const updatedEmployee = { ...employee, ...updatedFields };
 
       try {
-        const response = await axios.patch(`http://localhost:3002/employees/${id}`, updatedEmployee);
+        const response = await axios.patch(`https://hr-app-backend-9g16.onrender.com/employees/${id}`, updatedEmployee);
         const updated = response.data;
 
         setEmployeeData((prev) =>
@@ -58,7 +58,7 @@ const showMessage = (text, type = 'success') => {
 
     const deleteEmployeeHandler = async (id) => {
       try {
-        await axios.delete(`http://localhost:3002/employees/${id}`);
+        await axios.delete(`https://hr-app-backend-9g16.onrender.com/employees/${id}`);
         setEmployeeData((prev) => prev.filter(emp => emp.id !== id));
         showMessage('Employee deleted successfully!', 'delete');
       } catch (error) {
