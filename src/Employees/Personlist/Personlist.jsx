@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PersonCard from '../PersonCard/PersonCard';
-import styles from './PersonList.module.css';
+import styles from './Personlist.module.css';
 import axios from 'axios';
 
 const PersonList = ({ employeeData, onUpdateEmployee, onDeleteEmployee }) => {
