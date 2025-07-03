@@ -65,6 +65,7 @@ const PersonList = ({ employeeData, onUpdateEmployee, onDeleteEmployee }) => {
           <div className={styles.noEmployees}>
             <p>No employees match your search criteria.</p>
             <p>Try different search terms or filters.</p>
+            
           </div>
         )}
       </div>
