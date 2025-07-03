@@ -1,7 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PersonCard.module.css';
 
-const PersonCard = ({ id, name, title, salary, phone, email, animal, startDate, location, department, skills = [], onUpdate }) => {
+const PersonCard = ({
+  id,
+  name,
+  title,
+  salary,
+  phone,
+  email,
+  animal,
+  startDate,
+  location,
+  department,
+  skills = [],
+  profilePicture, 
+  onUpdate,
+  onDelete
+}) => {
   const calculateExperience = () => {
     const start = new Date(startDate);
     const now = new Date();
@@ -22,23 +37,13 @@ const PersonCard = ({ id, name, title, salary, phone, email, animal, startDate, 
 
   const addAnimalEmoji = (animalName) => {
     const emojiMap = {
-      rabbit: '🐇',
-      tiger: '🐅',
-      dog: '🐕',
-      cat: '🐈',
-      fox: '🦊',
-      panda: '🐼',
-      'polar bear': '🐻‍❄️',
-      seal: '🦭',
-      owl: '🦉',
-      lion: '🦁',
-      bear: '🐻',
+      rabbit: '🐇', tiger: '🐅', dog: '🐕', cat: '🐈', fox: '🦊',
+      panda: '🐼', 'polar bear': '🐻‍❄️', seal: '🦭', owl: '🦉', lion: '🦁', bear: '🐻'
     };
     return emojiMap[animalName?.toLowerCase()] || '';
   };
 
   const [isEditing, setIsEditing] = useState(false);
-
   const [formState, setFormState] = useState({
     salary: salary.toString(),
     location,
@@ -97,6 +102,7 @@ const PersonCard = ({ id, name, title, salary, phone, email, animal, startDate, 
               />
             </div>
           ))}
+          <div className={styles.divider}></div>  
           <div className={styles.buttons}>
             <button className={`${styles.buttonBase} ${styles.save}`} onClick={handleSave}>Save</button>
             <button className={`${styles.buttonBase} ${styles.cancel}`} onClick={handleCancel}>Cancel</button>
@@ -104,10 +110,18 @@ const PersonCard = ({ id, name, title, salary, phone, email, animal, startDate, 
         </>
       ) : (
         <>
-          <div className={styles.nameTitle}>
-            <h3 className={styles.name}>{name}</h3>
-            <p className={styles.title}>{title}</p>
-          </div>
+       <div className={styles.nameTitle}>
+  {profilePicture && (
+    <img src={profilePicture} alt="Profile" className={styles.avatar} />
+  )}
+  <div className={styles.nameTitleText}>
+    <h3 className={styles.name}>{name}</h3>
+    <p className={styles.title}>{title}</p>
+  </div>
+</div>
+
+
+
           <p><strong>Salary:</strong> {salary}</p>
           <p><strong>Phone:</strong> {phone}</p>
           <p><strong>Email:</strong> {email}</p>
@@ -118,17 +132,14 @@ const PersonCard = ({ id, name, title, salary, phone, email, animal, startDate, 
           <p><strong>Skills:</strong> {Array.isArray(skills) ? skills.join(', ') : skills}</p>
 
           {reminder && (
-            <div
-              className={`${styles.reminderMessage} ${
-                reminder.includes('🎉') ? styles.celebration : styles.probation
-              }`}
-            >
+            <div className={`${styles.reminderMessage} ${reminder.includes('🎉') ? styles.celebration : styles.probation}`}>
               {reminder}
             </div>
           )}
-
-          <div className={styles.button}>
+          <div className={styles.divider}></div>
+          <div className={styles.buttonGroup}>
             <button className={styles.buttonBase} onClick={() => setIsEditing(true)}>Edit</button>
+            <button className={`${styles.buttonBase} ${styles.delete}`} onClick={() => onDelete(id)}>Delete</button>
           </div>
         </>
       )}

@@ -1,34 +1,56 @@
-
 .form {
   text-align: center;
-  width: 500px;
-  margin: 0 auto;
-  border-radius: 10px;
+  width: 520px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  background: #1f1f1f;
+ 
 }
 
 .input {
   display: block;
-  width: 500px;
-  margin: 0.5rem 0;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 14px 18px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  background-color: white;
+  color: #334155;
 }
 
+.input::placeholder {
+  color: #94a3b8;
+  
+}
+
+
 .submitButton {
-  width: 400px;
-  padding: 10px;
-  font-size: 16px;
-  margin-bottom: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 14px 0;
+  font-size: 1.2rem;
+  margin: 1.5rem auto 0;
   cursor: pointer;
-  border-radius: 10px;
-  background-color: rgb(121, 123, 132);
-  color: rgb(238, 237, 237);
+  border-radius: 16px;
+  background: #fff;
+  color: black;
+  
+
+}
+
+.submitButton:hover {
+  background: rgb(0, 128, 0);
 }
 
 .title {
   text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  letter-spacing: 1.2px;
+  
 }
-
-  
-  
