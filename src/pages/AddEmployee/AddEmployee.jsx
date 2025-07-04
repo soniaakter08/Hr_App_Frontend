@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import styles from './AddEmployee.module.css';
+import axios from 'axios';
 
 const AddEmployee = ({ onAddEmployee }) => {
   const [formData, setFormData] = useState({
@@ -36,24 +37,29 @@ const AddEmployee = ({ onAddEmployee }) => {
       skills: formData.skills.split(',').map(skill => skill.trim())
     };
 
-    // ✅ Just pass to parent – let App.js handle POST + state
-    onAddEmployee(newEmployee);
-    navigate('/person');
-
-    // Optionally reset form
-    setFormData({
-      name: '',
-      title: '',
-      salary: '',
-      phone: '',
-      email: '',
-      animal: '',
-      startDate: '',
-      location: '',
-      department: '',
-      skills: '',
-      profilePicture: ''
-    });
+    axios
+      .post("https://hr-app-backend-9g16.onrender.com/employees", newEmployee)
+      .then((response) => {
+        onAddEmployee(response.data);
+        navigate('/person');
+        setFormData({
+          name: '',
+          title: '',
+          salary: '',
+          phone: '',
+          email: '',
+          animal: '',
+          startDate: '',
+          location: '',
+          department: '',
+          skills: '',
+          profilePicture: '' 
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding employee:", error);
+        alert("Failed to add employee. Check console for details.");
+      });
   };
 
   return (

@@ -11,29 +11,21 @@ function App() {
   const [employeeData, setEmployeeData] = useState([]);
   const [message, setMessage] = useState({ text: '', type: '' });
 
-
-const showMessage = (text, type = 'success') => {
-setMessage({ text, type });
-setTimeout(() => setMessage({ text: '', type: '' }), 3000);
-};
-
+  const showMessage = (text, type = 'success') => {
+    setMessage({ text, type });
+    setTimeout(() => setMessage({ text: '', type: '' }), 3000);
+  };
 
   useEffect(() => {
-    axios.get('https://sonia-backend-a6q4.onrender.com/employees')
+    axios.get('https://hr-app-backend-9g16.onrender.com/employees')
       .then((res) => setEmployeeData(res.data))
       .catch((err) => console.error('Failed to fetch data', err));
   }, []);
 
+
   const addEmployeeHandler = (newEmployee) => {
-    axios.post('https://sonia-backend-a6q4.onrender.com/employees', newEmployee)
-      .then((res) => {
-        setEmployeeData((prev) => [...prev, res.data]);
-        showMessage('Employee added successfully!', 'add');
-      })
-      .catch((err) => {
-        console.error('Error adding employee:', err);
-        showMessage('Failed to add employee.', 'error');
-      });
+    setEmployeeData((prev) => [...prev, newEmployee]);
+    showMessage('Employee added successfully!', 'add');
   };
 
   const updateEmployeeHandler = async (id, updatedFields) => {
@@ -43,7 +35,7 @@ setTimeout(() => setMessage({ text: '', type: '' }), 3000);
     const updatedEmployee = { ...employee, ...updatedFields };
 
     try {
-      const response = await axios.patch(`https://sonia-backend-a6q4.onrender.com/employees/${id}`, updatedEmployee);
+      const response = await axios.patch(`https://hr-app-backend-9g16.onrender.com/employees/${id}`, updatedEmployee);
       const updated = response.data;
 
       setEmployeeData((prev) =>
@@ -58,7 +50,7 @@ setTimeout(() => setMessage({ text: '', type: '' }), 3000);
 
   const deleteEmployeeHandler = async (id) => {
     try {
-      await axios.delete(`https://sonia-backend-a6q4.onrender.com/employees/${id}`);
+      await axios.delete(`https://hr-app-backend-9g16.onrender.com/employees/${id}`);
       setEmployeeData((prev) => prev.filter(emp => emp.id !== id));
       showMessage('Employee deleted successfully!', 'delete');
     } catch (error) {
@@ -69,12 +61,12 @@ setTimeout(() => setMessage({ text: '', type: '' }), 3000);
 
   return (
     <BrowserRouter>
-    {message.text && (
-<div className={`message-box ${message.type}`}>
-  {message.text}
-</div>
-)}
-    
+      {message.text && (
+        <div className={`message-box ${message.type}`}>
+          {message.text}
+        </div>
+      )}
+
       <Routes>
         <Route path="/" element={<Root />}>
           <Route index element={<About />} />
