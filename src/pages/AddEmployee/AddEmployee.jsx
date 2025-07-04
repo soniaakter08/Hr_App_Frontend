@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import styles from './AddEmployee.module.css';
 
 const AddEmployee = ({ onAddEmployee }) => {
@@ -15,7 +14,7 @@ const AddEmployee = ({ onAddEmployee }) => {
     location: '',
     department: '',
     skills: '',
-    profilePicture: '' 
+    profilePicture: ''
   });
 
   const navigate = useNavigate();
@@ -37,29 +36,24 @@ const AddEmployee = ({ onAddEmployee }) => {
       skills: formData.skills.split(',').map(skill => skill.trim())
     };
 
-    axios
-      .post("https://hr-app-backend-9g16.onrender.com/employees", newEmployee)
-      .then((response) => {
-        onAddEmployee(response.data);
-        navigate('/person');
-        setFormData({
-          name: '',
-          title: '',
-          salary: '',
-          phone: '',
-          email: '',
-          animal: '',
-          startDate: '',
-          location: '',
-          department: '',
-          skills: '',
-          profilePicture: '' 
-        });
-      })
-      .catch((error) => {
-        console.error("Error adding employee:", error);
-        alert("Failed to add employee. Check console for details.");
-      });
+    // ✅ Just pass to parent – let App.js handle POST + state
+    onAddEmployee(newEmployee);
+    navigate('/person');
+
+    // Optionally reset form
+    setFormData({
+      name: '',
+      title: '',
+      salary: '',
+      phone: '',
+      email: '',
+      animal: '',
+      startDate: '',
+      location: '',
+      department: '',
+      skills: '',
+      profilePicture: ''
+    });
   };
 
   return (
@@ -77,7 +71,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           { name: 'location', placeholder: 'Location' },
           { name: 'department', placeholder: 'Department' },
           { name: 'skills', placeholder: 'Skills (comma-separated)' },
-          { name: 'profilePicture', placeholder: 'Profile Picture URL' } 
+          { name: 'profilePicture', placeholder: 'Profile Picture URL' }
         ].map(({ name, placeholder, type = 'text' }) => (
           <input
             key={name}
@@ -87,6 +81,7 @@ const AddEmployee = ({ onAddEmployee }) => {
             value={formData[name]}
             onChange={handleChange}
             className={styles.input}
+            required
           />
         ))}
 
