@@ -53,7 +53,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           location: '',
           department: '',
           skills: '',
-          profilePicture: '' 
+          profilePicture: ''
         });
       })
       .catch((error) => {
@@ -73,7 +73,6 @@ const AddEmployee = ({ onAddEmployee }) => {
           { name: 'phone', placeholder: 'Phone Number', type: 'number' },
           { name: 'email', placeholder: 'Email', type: 'email' },
           { name: 'animal', placeholder: 'Animal' },
-          { name: 'startDate', placeholder: 'Start Date' },
           { name: 'location', placeholder: 'Location' },
           { name: 'department', placeholder: 'Department' },
           { name: 'skills', placeholder: 'Skills (comma-separated)' },
@@ -90,6 +89,15 @@ const AddEmployee = ({ onAddEmployee }) => {
             required
           />
         ))}
+
+        <input
+          type="date"
+          name="startDate"
+          value={formData.startDate}
+          onChange={handleChange}
+          className={styles.input}
+          required
+        />
 
         <button type="submit" className={styles.submitButton}>
           Add Employee
