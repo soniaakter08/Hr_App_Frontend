@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import axios from "axios";
 import styles from './AddEmployee.module.css';
-import axios from 'axios';
 
 const AddEmployee = ({ onAddEmployee }) => {
   const [formData, setFormData] = useState({
@@ -20,6 +20,11 @@ const AddEmployee = ({ onAddEmployee }) => {
 
   const navigate = useNavigate();
 
+  const formatDate = (isoDate) => {
+    const [year, month, day] = isoDate.split('-');
+    return `${day}.${month}.${year}`;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -33,12 +38,13 @@ const AddEmployee = ({ onAddEmployee }) => {
 
     const newEmployee = {
       ...formData,
+      startDate: formatDate(formData.startDate),
       salary: Number(formData.salary),
       skills: formData.skills.split(',').map(skill => skill.trim())
     };
 
     axios
-      .post("https://hr-app-backend-9g16.onrender.com/employees", newEmployee)
+      .post("http://localhost:3002/employees", newEmployee)
       .then((response) => {
         onAddEmployee(response.data);
         navigate('/person');
@@ -53,7 +59,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           location: '',
           department: '',
           skills: '',
-          profilePicture: '' 
+          profilePicture: ''
         });
       })
       .catch((error) => {
@@ -73,7 +79,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           { name: 'phone', placeholder: 'Phone Number', type: 'number' },
           { name: 'email', placeholder: 'Email', type: 'email' },
           { name: 'animal', placeholder: 'Animal' },
-          { name: 'startDate', placeholder: 'Start Date' },
+          { name: 'startDate', placeholder: 'Start Date', type: 'date' },
           { name: 'location', placeholder: 'Location' },
           { name: 'department', placeholder: 'Department' },
           { name: 'skills', placeholder: 'Skills (comma-separated)' },
@@ -87,7 +93,6 @@ const AddEmployee = ({ onAddEmployee }) => {
             value={formData[name]}
             onChange={handleChange}
             className={styles.input}
-            required
           />
         ))}
 
