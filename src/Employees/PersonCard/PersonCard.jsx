@@ -13,13 +13,12 @@ const PersonCard = ({
   location,
   department,
   skills = [],
-  profilePicture,
+  profilePicture, 
   onUpdate,
   onDelete
 }) => {
   const calculateExperience = () => {
-    const [day, month, year] = startDate.split('.');
-    const start = new Date(`${year}-${month}-${day}`);
+    const start = new Date(startDate);
     const now = new Date();
     const totalMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
     const years = Math.floor(totalMonths / 12);
@@ -103,7 +102,7 @@ const PersonCard = ({
               />
             </div>
           ))}
-          <div className={styles.divider}></div>
+          <div className={styles.divider}></div>  
           <div className={styles.buttons}>
             <button className={`${styles.buttonBase} ${styles.save}`} onClick={handleSave}>Save</button>
             <button className={`${styles.buttonBase} ${styles.cancel}`} onClick={handleCancel}>Cancel</button>
@@ -111,15 +110,17 @@ const PersonCard = ({
         </>
       ) : (
         <>
-          <div className={styles.nameTitle}>
-            {profilePicture && (
-              <img src={profilePicture} alt="Profile" className={styles.avatar} />
-            )}
-            <div className={styles.nameTitleText}>
-              <h3 className={styles.name}>{name}</h3>
-              <p className={styles.title}>{title}</p>
-            </div>
-          </div>
+       <div className={styles.nameTitle}>
+  {profilePicture && (
+    <img src={profilePicture} alt="Profile" className={styles.avatar} />
+  )}
+  <div className={styles.nameTitleText}>
+    <h3 className={styles.name}>{name}</h3>
+    <p className={styles.title}>{title}</p>
+  </div>
+</div>
+
+
 
           <p><strong>Salary:</strong> {salary}</p>
           <p><strong>Phone:</strong> {phone}</p>
